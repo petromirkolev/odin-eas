@@ -16,15 +16,19 @@ function loadInitialScreen() {
   document.getElementsByTagName('body')[0].innerHTML = ``;
   document.getElementsByTagName('body')[0].innerHTML = `  
   <h1>Select grid size:</h1>
-  <input type="button" id="8" value="8 x 8" />
-  <input type="button" id="16" value="16 x 16" />
-  <input type="button" id="32" value="32 x 32" />
-  <input type="button" id="50" value="50 x 50" />
+  <input type="button" class="grid-size" id="8" value="8 x 8" />
+  <input type="button" class="grid-size" id="16" value="16 x 16" />
+  <input type="button" class="grid-size" id="32" value="32 x 32" />
+  <input type="button" class="grid-size" id="50" value="50 x 50" />
 `;
   document.addEventListener('click', (e) => {
-    let userSelection = Number(e.target.id);
-    loadCanvasHome();
-    constructGridLayout(userSelection);
+    if (e.target.classList[0] === 'grid-size') {
+      let userSelection = Number(e.target.id);
+      loadCanvasHome();
+      constructGridLayout(userSelection);
+      handleGameButtons();
+      drawWithBlack();
+    }
   });
 }
 // Create the grid per user selection
@@ -39,6 +43,32 @@ function constructGridLayout(gridSize) {
   document.getElementById(
     'grid'
   ).style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
+}
+// Handle in-game buttons
+function handleGameButtons() {
+  document.addEventListener('click', (e) => {
+    // Reset button
+    if (e.target.id === 'reset') {
+      loadInitialScreen();
+    }
+    // Erase button
+    if (e.target.id === 'erase') {
+    }
+    // Rainbow mode button
+    if (e.target.id === 'random-col') {
+    }
+  });
+}
+// Handle black and white coloring
+function drawWithBlack() {
+  document.addEventListener('mousedown', (e) => {
+    document.addEventListener('mousemove', (e) => {
+      console.log(e.target);
+    });
+    document.addEventListener('mouseup', (e) => {
+      document.removeEventListener();
+    });
+  });
 }
 
 // Trigger initial screen on page load
