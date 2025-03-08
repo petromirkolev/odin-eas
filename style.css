@@ -17,14 +17,12 @@ body {
   width: 70vh;
   text-align: center;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
   column-gap: 2px;
   row-gap: 2px;
 }
 .grid > div {
-  border: 2px dotted black;
-  border-radius: 10px;
+  border: 1px solid black;
+  border-radius: 2px;
 }
 .nav > button {
   font-size: 20px;
