@@ -1,80 +1,54 @@
 * {
   margin: 0;
 }
-
 body {
-  background-color: blanchedalmond;
   height: 100vh;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
 }
-
-#page-title {
-  font-family: fantasy;
-  font-size: calc(2vh * 4);
-  width: 100%;
-  flex-basis: 100%;
-  height: 10vh;
-  text-align: center;
-  align-content: center;
-}
-
-#home-button,
-#reset-button {
-  font-family: monospace;
-  font-size: 30px;
-  width: 10%;
-  border-radius: 10px;
-  flex-basis: 10%;
-  background-color: darkkhaki;
-  height: 50px;
-}
-
-#color-palette-title {
-  font-family: monospace;
-  font-size: 35px;
-  width: 25%;
-  flex-basis: 25%;
-  height: 50px;
-  text-align: center;
-  align-content: center;
-}
-#reset-button {
-  background-color: tomato;
-}
-#color-palette {
+.nav {
   display: flex;
-  justify-content: center;
-  width: 40%;
-  flex-basis: 60%;
-  height: 50px;
+  gap: 1vh;
+  margin: 10px 0 50px 0;
 }
-
-.colors {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: 2px solid black;
-  margin: 5px;
+.grid {
+  height: 70vh;
+  width: 70vh;
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  column-gap: 2px;
+  row-gap: 2px;
 }
-
-#white {
-  background-color: white;
+.grid > div {
+  border: 2px dotted black;
+  border-radius: 10px;
 }
-#red {
-  background-color: red;
+.nav > button {
+  font-size: 20px;
+  font-family: monospace;
+  border: 3px solid black;
+  padding: 10px;
+  border-radius: 10px;
 }
-#blue {
-  background-color: blue;
+.nav > button:hover {
+  cursor: pointer;
+  background-color: aliceblue;
 }
-#green {
+.nav > button:active {
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+#canvas-title {
+  margin-top: 20px;
+  font-size: 50px;
+  font-family: monospace;
+}
+#reset:hover {
   background-color: greenyellow;
 }
-
-#sketch-grid {
-  width: 80%;
-  flex-basis: 80%;
-  min-height: 60vh;
+#erase:hover {
+  background-color: tomato;
 }
