@@ -3,48 +3,78 @@
 }
 
 body {
-  height: 100%;
+  background-color: blanchedalmond;
+  height: 100vh;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
-  align-content: center;
+  justify-content: center;
+  align-items: center;
 }
 
 #page-title {
+  font-family: fantasy;
+  font-size: calc(2vh * 4);
   width: 100%;
   flex-basis: 100%;
-  background-color: red;
-  height: 50px;
+  height: 10vh;
+  text-align: center;
+  align-content: center;
 }
 
-#home-button {
-  width: 20%;
-  flex-basis: 20%;
-  background-color: blue;
+#home-button,
+#reset-button {
+  font-family: monospace;
+  font-size: 30px;
+  width: 10%;
+  border-radius: 10px;
+  flex-basis: 10%;
+  background-color: darkkhaki;
   height: 50px;
 }
 
 #color-palette-title {
-  width: 50%;
-  flex-basis: 50%;
-  background-color: purple;
+  font-family: monospace;
+  font-size: 35px;
+  width: 25%;
+  flex-basis: 25%;
   height: 50px;
+  text-align: center;
+  align-content: center;
 }
 #reset-button {
-  width: 20%;
-  flex-basis: 20%;
-  background-color: green;
-  height: 50px;
+  background-color: tomato;
 }
 #color-palette {
-  width: 100%;
-  flex-basis: 100%;
-  background-color: magenta;
+  display: flex;
+  justify-content: center;
+  width: 40%;
+  flex-basis: 60%;
   height: 50px;
 }
+
+.colors {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid black;
+  margin: 5px;
+}
+
+#white {
+  background-color: white;
+}
+#red {
+  background-color: red;
+}
+#blue {
+  background-color: blue;
+}
+#green {
+  background-color: greenyellow;
+}
+
 #sketch-grid {
-  width: 50%;
-  flex-basis: 50%;
-  background-color: aqua;
-  height: 500px;
+  width: 80%;
+  flex-basis: 80%;
+  min-height: 60vh;
 }
