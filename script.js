@@ -1,16 +1,3 @@
-// Load the canvas after grid size selection
-function loadCanvasHome() {
-  document.getElementsByTagName('body')[0].innerHTML = ``;
-  document.getElementsByTagName('body')[0].innerHTML = `
-  <h1 id="canvas-title">Welcome to Etch-A-Sketch!</h1>
-    <div class="nav">
-      <button id="reset">Reset canvas</button>
-      <button id="erase">Erase drawing</button>
-      <button id="random-col">Rainbow mode</button>
-    </div>
-    <div id="grid" class="grid"></div>
-    `;
-}
 // Load the initial screen on page load
 function loadInitialScreen() {
   document.getElementsByTagName('body')[0].innerHTML = ``;
@@ -26,15 +13,33 @@ function loadInitialScreen() {
       let userSelection = Number(e.target.id);
       loadCanvasHome();
       constructGridLayout(userSelection);
-      handleGameButtons();
-      drawWithBlack();
     }
+  });
+}
+// Load the canvas after grid size selection
+function loadCanvasHome() {
+  document.getElementsByTagName('body')[0].innerHTML = ``;
+  document.getElementsByTagName('body')[0].innerHTML = `
+  <h1 id="canvas-title">Welcome to Etch-A-Sketch!</h1>
+    <div class="nav">
+      <button id="reset">Reset canvas</button>
+      <button id="erase">Erase drawing</button>
+      <button id="random-col">Rainbow mode</button>
+    </div>
+    <div id="grid" class="grid"></div>
+    `;
+  handleGameButtons();
+  document.addEventListener('mousedown', moveToDraw);
+  document.addEventListener('mouseup', () => {
+    document.removeEventListener('mousemove', moveToDraw);
+    console.log('Drawing stopped');
   });
 }
 // Create the grid per user selection
 function constructGridLayout(gridSize) {
   for (let i = 0; i < gridSize * gridSize; i++) {
     let div = document.createElement('div');
+    div.classList = 'grid-box';
     document.getElementById('grid').appendChild(div);
   }
   document.getElementById(
@@ -44,11 +49,12 @@ function constructGridLayout(gridSize) {
     'grid'
   ).style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
 }
-// Handle in-game buttons
+// Handle in-game buttons input
 function handleGameButtons() {
   document.addEventListener('click', (e) => {
     // Reset button
     if (e.target.id === 'reset') {
+      location.reload();
       loadInitialScreen();
     }
     // Erase button
@@ -59,17 +65,19 @@ function handleGameButtons() {
     }
   });
 }
-// Handle black and white coloring
-function drawWithBlack() {
-  document.addEventListener('mousedown', (e) => {
-    document.addEventListener('mousemove', (e) => {
-      console.log(e.target);
-    });
-    document.addEventListener('mouseup', (e) => {
-      document.removeEventListener();
-    });
+// Move mouse to draw on canvas
+function moveToDraw() {
+  document.addEventListener('mousemove', (e) => {
+    console.log(e.target);
   });
 }
+
+// function stopDrawing() {
+//   document.removeEventListener('mousemove', moveToDraw);
+//   console.log('Drawing stopped');
+// }
+
+// Draw with mouse move
 
 // Trigger initial screen on page load
 loadInitialScreen();
