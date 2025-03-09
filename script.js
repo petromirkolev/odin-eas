@@ -1,5 +1,8 @@
+// Global vars
+let rainbowMode = false;
+
 // Load the initial screen on page load
-function loadInitialScreen() {
+function selectGridSize() {
   document.getElementsByTagName('body')[0].innerHTML = ``;
   document.getElementsByTagName('body')[0].innerHTML = `  
   <h1>Select grid size:</h1>
@@ -11,13 +14,43 @@ function loadInitialScreen() {
   document.addEventListener('click', (e) => {
     if (e.target.classList[0] === 'grid-size') {
       let userSelection = Number(e.target.id);
-      loadCanvasHome();
-      constructGridLayout(userSelection);
+      loadGrid();
+      constructGrid(userSelection);
+    }
+  });
+}
+// Create the grid per user selection
+function constructGrid(size) {
+  for (let i = 0; i < size * size; i++) {
+    let div = document.createElement('div');
+    div.classList = 'grid-box';
+    document.getElementById('grid').appendChild(div);
+  }
+  document.getElementById(
+    'grid'
+  ).style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+  document.getElementById(
+    'grid'
+  ).style.gridTemplateRows = `repeat(${size}, 1fr)`;
+}
+// Handle in-game buttons input
+function gridButtons() {
+  document.addEventListener('click', (e) => {
+    // Reset button
+    if (e.target.id === 'reset') {
+      location.reload();
+      selectGridSize();
+    }
+    // Erase button
+    if (e.target.id === 'erase') {
+    }
+    // Rainbow mode button
+    if (e.target.id === 'random-col') {
     }
   });
 }
 // Load the canvas after grid size selection
-function loadCanvasHome() {
+function loadGrid() {
   document.getElementsByTagName('body')[0].innerHTML = ``;
   document.getElementsByTagName('body')[0].innerHTML = `
   <h1 id="canvas-title">Welcome to Etch-A-Sketch!</h1>
@@ -28,56 +61,54 @@ function loadCanvasHome() {
     </div>
     <div id="grid" class="grid"></div>
     `;
-  handleGameButtons();
-  document.addEventListener('mousedown', moveToDraw);
-  document.addEventListener('mouseup', () => {
-    document.removeEventListener('mousemove', moveToDraw);
-    console.log('Drawing stopped');
+  gridButtons();
+  drawOnGrid();
+  isRainbow();
+}
+// Allow draw on grid
+function drawOnGrid() {
+  document.addEventListener('mousedown', function (e) {
+    function handleMouseMove(e) {
+      if (e.target.classList[0] === 'grid-box') {
+        if (rainbowMode === true) {
+          let colors = [
+            'red',
+            'blue',
+            'yellow',
+            'green',
+            'purple',
+            'magenta',
+            'cyan',
+          ];
+          e.target.style.backgroundColor =
+            colors[Math.floor(Math.random() * colors.length)];
+        } else {
+          e.target.style.backgroundColor = 'black';
+        }
+      }
+    }
+
+    document.addEventListener('mousemove', handleMouseMove);
+
+    document.addEventListener('mouseup', function () {
+      document.removeEventListener('mousemove', handleMouseMove);
+    });
   });
 }
-// Create the grid per user selection
-function constructGridLayout(gridSize) {
-  for (let i = 0; i < gridSize * gridSize; i++) {
-    let div = document.createElement('div');
-    div.classList = 'grid-box';
-    document.getElementById('grid').appendChild(div);
-  }
-  document.getElementById(
-    'grid'
-  ).style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
-  document.getElementById(
-    'grid'
-  ).style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
-}
-// Handle in-game buttons input
-function handleGameButtons() {
+// Allow rainbow mode
+function isRainbow() {
   document.addEventListener('click', (e) => {
-    // Reset button
-    if (e.target.id === 'reset') {
-      location.reload();
-      loadInitialScreen();
-    }
-    // Erase button
-    if (e.target.id === 'erase') {
-    }
-    // Rainbow mode button
     if (e.target.id === 'random-col') {
+      if (rainbowMode === false) {
+        rainbowMode = true;
+        document.getElementById('random-col').style.backgroundColor = 'red';
+      } else {
+        rainbowMode = false;
+        document.getElementById('random-col').style.backgroundColor = '';
+      }
     }
   });
 }
-// Move mouse to draw on canvas
-function moveToDraw() {
-  document.addEventListener('mousemove', (e) => {
-    console.log(e.target);
-  });
-}
 
-// function stopDrawing() {
-//   document.removeEventListener('mousemove', moveToDraw);
-//   console.log('Drawing stopped');
-// }
-
-// Draw with mouse move
-
-// Trigger initial screen on page load
-loadInitialScreen();
+// Load grid size screen on page load
+selectGridSize();
