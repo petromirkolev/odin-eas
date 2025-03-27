@@ -63,7 +63,8 @@ function loadGrid() {
     `;
   gridButtons();
   drawOnGrid();
-  isRainbow();
+  rainbowButton();
+  eraseButton();
 }
 // Allow draw on grid
 function drawOnGrid() {
@@ -96,7 +97,7 @@ function drawOnGrid() {
   });
 }
 // Allow rainbow mode
-function isRainbow() {
+function rainbowButton() {
   document.addEventListener('click', (e) => {
     if (e.target.id === 'random-col') {
       if (rainbowMode === false) {
@@ -106,6 +107,9 @@ function isRainbow() {
         rainbowMode = false;
         document.getElementById('random-col').style.backgroundColor = '';
       }
+    }
+
+    if (e.target.id === 'erase') {
     }
   });
 }
