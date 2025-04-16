@@ -65,7 +65,7 @@ function loadGrid() {
     `;
   gridButtons();
   drawOnGrid();
-  isRainbow();
+  rainbowButton();
   isErase();
 }
 // Allow draw on grid
