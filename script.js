@@ -1,16 +1,18 @@
 // Global vars
 let rainbowMode = false;
+let eraseMode = false;
 
 // Load the initial screen on page load
 function selectGridSize() {
+  // Reset the HTML
   document.getElementsByTagName('body')[0].innerHTML = ``;
-  document.getElementsByTagName('body')[0].innerHTML = `  
-  <h1>Select grid size:</h1>
-  <input type="button" class="grid-size" id="8" value="8 x 8" />
-  <input type="button" class="grid-size" id="16" value="16 x 16" />
-  <input type="button" class="grid-size" id="32" value="32 x 32" />
-  <input type="button" class="grid-size" id="50" value="50 x 50" />
-`;
+  document.getElementsByTagName('body')[0].innerHTML = `
+    <h1 id="grid-title" >Select grid size:</h1>
+    <input type="button" class="grid-size" id="8" value="8 x 8" />
+    <input type="button" class="grid-size" id="16" value="16 x 16" />
+    <input type="button" class="grid-size" id="32" value="32 x 32" />
+    <input type="button" class="grid-size" id="50" value="50 x 50" />
+  `;
   document.addEventListener('click', (e) => {
     if (e.target.classList[0] === 'grid-size') {
       let userSelection = Number(e.target.id);
@@ -63,15 +65,15 @@ function loadGrid() {
     `;
   gridButtons();
   drawOnGrid();
-  rainbowButton();
-  eraseButton();
+  isRainbow();
+  isErase();
 }
 // Allow draw on grid
 function drawOnGrid() {
   document.addEventListener('mousedown', function (e) {
     function handleMouseMove(e) {
       if (e.target.classList[0] === 'grid-box') {
-        if (rainbowMode === true) {
+        if ((rainbowMode === true) & (eraseMode === false)) {
           let colors = [
             'red',
             'blue',
@@ -83,14 +85,17 @@ function drawOnGrid() {
           ];
           e.target.style.backgroundColor =
             colors[Math.floor(Math.random() * colors.length)];
-        } else {
+        }
+        if (eraseMode === true) {
+          e.target.style.backgroundColor = '';
+        }
+        if ((rainbowMode === false) & (eraseMode === false)) {
           e.target.style.backgroundColor = 'black';
         }
       }
     }
 
     document.addEventListener('mousemove', handleMouseMove);
-
     document.addEventListener('mouseup', function () {
       document.removeEventListener('mousemove', handleMouseMove);
     });
@@ -113,6 +118,21 @@ function rainbowButton() {
     }
   });
 }
-
+// Allow erase mode
+function isErase() {
+  document.addEventListener('click', (e) => {
+    if (e.target.id === 'erase') {
+      if (eraseMode === false) {
+        eraseMode = true;
+        rainbowMode = false;
+        document.getElementById('erase').style.backgroundColor = 'red';
+        document.getElementById('random-col').style.backgroundColor = '';
+      } else {
+        eraseMode = false;
+        document.getElementById('erase').style.backgroundColor = '';
+      }
+    }
+  });
+}
 // Load grid size screen on page load
 selectGridSize();

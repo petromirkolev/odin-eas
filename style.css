@@ -6,11 +6,12 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-evenly;
 }
 .nav {
   display: flex;
   gap: 1vh;
-  margin: 10px 0 50px 0;
+  margin: 10px 0 30px 0;
 }
 .grid {
   height: 70vh;
@@ -38,6 +39,17 @@ body {
 .nav > button:active {
   box-shadow: 0 5px #666;
   transform: translateY(4px);
+}
+#grid-title {
+  font-family: monospace;
+  font-size: 75px;
+}
+.grid-size {
+  font-family: monospace;
+  font-size: 30px;
+  width: 10vw;
+  height: 5vw;
+  border-radius: 10px;
 }
 #canvas-title {
   margin-top: 20px;
